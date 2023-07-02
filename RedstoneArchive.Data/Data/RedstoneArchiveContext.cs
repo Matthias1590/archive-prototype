@@ -12,4 +12,5 @@ public class RedstoneArchiveContext : DbContext
 
     public DbSet<Post> Posts { get; } = default!;
     public DbSet<Schematic> Schematics { get; } = default!;
+    public DbSet<Comment> Comments { get; } = default!;
 }
