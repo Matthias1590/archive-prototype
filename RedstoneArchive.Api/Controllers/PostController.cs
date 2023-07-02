@@ -15,26 +15,32 @@ public class PostController : ControllerBase<PostController>
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Post>> GetAsync()
+    public async Task<IActionResult> GetAsync()
     {
         _logger.LogInformation("Getting posts");
 
-        return await _postRepository.GetPostsAsync();
+        return Ok(await _postRepository.GetPostsAsync());
     }
 
     [HttpGet("/{id}")]
-    public async Task<Post?> GetPostByIdAsync(int id)
+    public async Task<IActionResult> GetPostByIdAsync(int id)
     {
         _logger.LogInformation("Getting post by id {id}", id);
 
-        return await _postRepository.GetPostByIdAsync(id);
+        var post = await _postRepository.GetPostByIdAsync(id);
+        if (post is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(post);
     }
 
     [HttpPost]
-    public async Task AddPostAsync(Post post)
+    public async Task<IActionResult> AddPostAsync(Post post)
     {
         _logger.LogInformation("Creating post");
 
-        await _postRepository.AddPostAsync(post);
+        return Ok(await _postRepository.AddPostAsync(post));
     }
 }

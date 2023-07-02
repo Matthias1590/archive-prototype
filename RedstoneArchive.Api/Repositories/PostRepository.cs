@@ -11,11 +11,13 @@ public class PostRepository : RepositoryBase<PostRepository>, IPostRepository
     {
     }
 
-    public async Task AddPostAsync(Post post)
+    public async Task<Post> AddPostAsync(Post post)
     {
         await _context.Posts.AddAsync(post);
 
         await _context.SaveChangesAsync();
+
+        return post;
     }
 
     public async Task<Post?> GetPostByIdAsync(int id)
