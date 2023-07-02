@@ -1,4 +1,5 @@
-﻿using RedstoneArchive.Abstractions.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RedstoneArchive.Abstractions.Data;
 using RedstoneArchive.Abstractions.Data.Models;
 
 namespace RedstoneArchive.Api.Repositories;
@@ -24,6 +25,6 @@ public class PostRepository : RepositoryBase<PostRepository>, IPostRepository
 
     public async Task<IEnumerable<Post>> GetPostsAsync()
     {
-        return _context.Posts.ToList();
+        return await _context.Posts.ToListAsync();
     }
 }
